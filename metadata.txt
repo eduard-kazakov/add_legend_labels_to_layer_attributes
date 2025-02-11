@@ -13,9 +13,9 @@ repository=https://github.com/eduard-kazakov/add_legend_labels_to_layer_attribut
 
 hasProcessingProvider=yes
 
-tags=legend, label
+tags=legend,label,attributes
 
-homepage=http://ekazakov.me/add_legend_labels_to_layer_attributes_qgis_plugin
+homepage=https://ekazakov.me/add-legend-labels-to-layer-attributes-qgis-plugin
 category=Vector
 icon=icon.png
 experimental=False
