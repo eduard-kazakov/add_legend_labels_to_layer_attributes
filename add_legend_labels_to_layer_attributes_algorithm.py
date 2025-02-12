@@ -18,6 +18,7 @@ from qgis.core import (
     QgsField,
     QgsCategorizedSymbolRenderer,
     QgsRuleBasedRenderer,
+    QgsPointClusterRenderer,
     QgsGraduatedSymbolRenderer,
     QgsProcessingException,
     QgsExpression,
@@ -110,6 +111,10 @@ class AddLegendLabelsAlgorithm(QgsProcessingAlgorithm):
             
         renderer = source_layer.renderer()
         class_field = None
+
+        if isinstance(renderer, QgsPointClusterRenderer):
+            renderer = renderer.embeddedRenderer()
+
         if isinstance(renderer, QgsCategorizedSymbolRenderer) or isinstance(renderer, QgsGraduatedSymbolRenderer):
             class_field = renderer.classAttribute()
 
@@ -146,6 +151,7 @@ class AddLegendLabelsAlgorithm(QgsProcessingAlgorithm):
         help_string = (
             'Add legend labels to layer attributes\n\n'
             'This tool extracts legend labels from the current layer style and assigns them as attribute values to the corresponding features. It supports categorized, graduated, and rule-based renderers.\n'
+            'These renderers are also supported if they are embedded renderes for point cluster renderer.\n'
             'For categorized and graduated renderers, the tool supports styles based on single field values.\n'
             'For rule-based renderers, there are no limitations—complex expressions and conditions are fully supported.\n'
             'If your categorized or graduated renderer uses advanced expressions, you can convert it to a rule-based renderer automatically to ensure compatibility with this tool.\n'

@@ -2,9 +2,13 @@
 name=Add Legend Labels to Layer Attributes
 qgisMinimumVersion=3.32
 description=Plugin to extract legend labels from the current layer style and assigns them as attribute values to the corresponding features.
-version=1.0
+version=1.1
 author=Eduard Kazakov
 email=ee.kazakov@gmail.com
+
+changelog=
+	1.1
+		* Implemented support for QgsPointClusterRenderer
 
 about=This tool extracts legend labels from the current layer style and assigns them as attribute values to the corresponding features. It supports categorized, graduated, and rule-based renderers. For categorized and graduated renderers, the tool supports styles based on single field values. For rule-based renderers, there are no limitations — complex expressions and conditions are fully supported.
 
