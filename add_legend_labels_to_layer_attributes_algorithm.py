@@ -125,7 +125,7 @@ class AddLegendLabelsAlgorithm(QgsProcessingAlgorithm):
 
             label = ""
             if isinstance(renderer, QgsCategorizedSymbolRenderer) and class_field in feature.fields().names():
-                value = str(feature[class_field])
+                value = feature[class_field]
                 label = legend_labels.get(value, "")
             elif isinstance(renderer, QgsRuleBasedRenderer):
                 label = get_rule_based_label(feature, renderer)
