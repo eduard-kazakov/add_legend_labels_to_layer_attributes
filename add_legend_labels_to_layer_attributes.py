@@ -11,7 +11,7 @@ import os
 import sys
 import inspect
 
-from qgis.core import QgsProcessingAlgorithm, QgsApplication
+from qgis.core import QgsApplication
 from .add_legend_labels_to_layer_attributes_provider import AddLegendLabelsProvider
 
 cmd_folder = os.path.split(inspect.getfile(inspect.currentframe()))[0]

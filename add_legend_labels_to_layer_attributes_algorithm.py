@@ -25,7 +25,7 @@ from qgis.core import (
     QgsExpressionContext,
     QgsExpressionContextScope
 )
-from qgis.PyQt.QtCore import QVariant
+from qgis.PyQt.QtCore import QMetaType
 
 def get_legend_labels(layer):
     """Extract legend labels from categorized, rule-based, and graduated renderers"""
@@ -33,7 +33,10 @@ def get_legend_labels(layer):
     labels = {}
     if isinstance(renderer, QgsCategorizedSymbolRenderer):
         for category in renderer.categories():
-            labels[category.value()] = category.label()
+            try:
+                labels[category.value()] = category.label()
+            except TypeError:
+                raise QgsProcessingException("Failed to process complex data in CategorizedSymbolRenderer (like lists or expressions). Switch to RuleBasedRenderer instead, it is fully supported and transforms Categories automatically")
     elif isinstance(renderer, QgsRuleBasedRenderer):
         for rule in renderer.rootRule().children():
             labels[rule.filterExpression()] = rule.label()
@@ -99,7 +102,7 @@ class AddLegendLabelsAlgorithm(QgsProcessingAlgorithm):
         label_field_name = self.parameterAsString(parameters, self.LABEL_FIELD, context)
 
         new_fields = source_layer.fields()
-        new_fields.append(QgsField(label_field_name, QVariant.String))
+        new_fields.append(QgsField(label_field_name, QMetaType.Type.QString))
 
         (sink, dest_id) = self.parameterAsSink(
             parameters, self.OUTPUT, context,
