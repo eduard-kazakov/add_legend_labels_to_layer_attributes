@@ -7,6 +7,7 @@ https://github.com/eduard-kazakov/add_legend_labels_to_layer_attributes
 Eduard Kazakov | ee.kazakov@gmail.com
 """
 
+import os
 from qgis.core import (
     QgsProcessing,
     QgsProcessingAlgorithm,
@@ -26,6 +27,7 @@ from qgis.core import (
     QgsExpressionContextScope
 )
 from qgis.PyQt.QtCore import QMetaType
+from qgis.PyQt.QtGui import QIcon
 
 def get_legend_labels(layer):
     """Extract legend labels from categorized, rule-based, and graduated renderers"""
@@ -160,6 +162,9 @@ class AddLegendLabelsAlgorithm(QgsProcessingAlgorithm):
             'If your categorized or graduated renderer uses advanced expressions, you can convert it to a rule-based renderer automatically to ensure compatibility with this tool.\n'
         )
         return help_string
+    
+    def icon(self):
+        return QIcon(os.path.join(os.path.dirname(__file__), 'icon.png'))
 
     def createInstance(self):
         return AddLegendLabelsAlgorithm()
